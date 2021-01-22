@@ -102,15 +102,20 @@ function! sy#sign#process_diff(sy, vcs, diff) abort
       let deleted += old_count
       if new_line == 0
         call add(ids, s:add_sign(a:sy, 1, 'SignifyRemoveFirstLine'))
-      elseif s:sign_show_count
-        let text = s:sign_delete . (old_count <= 99 ? old_count : '>')
-        while strwidth(text) > 2
-          let text = substitute(text, '.', '', '')
-        endwhile
-        call add(ids, s:add_sign(a:sy, new_line, 'SignifyDelete'. old_count, text))
       else
-        call add(ids, s:add_sign(a:sy, new_line, 'SignifyDeleteMore', s:sign_delete))
+        if get(a:sy.signtable, new_line, 0)
+          call add(ids, s:add_sign(a:sy, new_line, 'SignifyRemoveTopBottom'))
+        elseif s:sign_show_count
+          let text = s:sign_delete . (old_count <= 99 ? old_count : '>')
+          while strwidth(text) > 2
+            let text = substitute(text, '.', '', '')
+          endwhile
+          call add(ids, s:add_sign(a:sy, new_line, 'SignifyDelete'. old_count, text))
+        else
+          call add(ids, s:add_sign(a:sy, new_line, 'SignifyDeleteMore', s:sign_delete))
+        endif
       endif
+
     " All lines are modified.
     elseif old_count > 0 && new_count > 0 && old_count == new_count
       let modified += new_count

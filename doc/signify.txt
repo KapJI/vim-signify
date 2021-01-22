@@ -130,6 +130,7 @@ default values, as long as no "Default:" section is given.
     |g:signify_sign_add|
     |g:signify_sign_delete|
     |g:signify_sign_delete_first_line|
+    |g:signify_sign_delete_top_bottom|
     |g:signify_sign_change|
     |g:signify_sign_change_delete|
     |g:signify_sign_show_count|
@@ -267,12 +268,14 @@ Enable line highlighting in addition to using signs by default.
                                               *g:signify_sign_add*
                                               *g:signify_sign_delete*
                                               *g:signify_sign_delete_first_line*
+                                              *g:signify_sign_delete_top_bottom*
                                               *g:signify_sign_change*
                                               *g:signify_sign_change_delete*
 >
     let g:signify_sign_add               = '+'
     let g:signify_sign_delete            = '_'
     let g:signify_sign_delete_first_line = '‾'
+    let g:signify_sign_delete_top_bottom = g:signify_sign_delete_first_line . g:signify_sign_delete
     let g:signify_sign_change            = '!'
     let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
 <
@@ -554,12 +557,14 @@ highlighting groups: |hl-DiffAdd|, |hl-DiffChange|, |hl-DiffDelete|:
     highlight link SignifyLineChangeDelete    SignifyLineChange
     highlight link SignifyLineDelete          DiffDelete
     highlight link SignifyLineDeleteFirstLine SignifyLineDelete
+    highlight link SignifyLineDeleteTopBottom SignifyLineDelete
 
     highlight link SignifySignAdd             DiffAdd
     highlight link SignifySignChange          DiffChange
     highlight link SignifySignChangeDelete    SignifySignChange
     highlight link SignifySignDelete          DiffDelete
     highlight link SignifySignDeleteFirstLine SignifySignDelete
+    highlight link SignifySignDeleteTopBottom SignifySignDelete
 <
 Thus if you do not want to change the standard highlighting groups, but want
 different colors for either your signs or lines, you can overwrite these
